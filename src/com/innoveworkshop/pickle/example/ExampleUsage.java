@@ -22,22 +22,15 @@ public class ExampleUsage {
 	 * @param args Command-line arguments passed to the application.
 	 */
 	public static void main(String[] args) {
-		String filePath = null;
-		
 		// Check if we have a command-line argument.
 		if (args.length == 0) {
-			filePath = "/home/nathanpc/src/pickle/examples/example.pkl";
-			/*
 			System.out.println("Missing the path to a PickLE pick list file as an argument");
 			return;
-			*/
-		} else {
-			filePath = args[0];
 		}
 		
 		try {
 			// Parse the pick list file.
-			doc = new Document(new FileReader(filePath));
+			doc = new Document(new FileReader(args[0]));
 			
 			// Print out the parsed contents.
 			ArrayList<Category> categories = doc.getCategories();
