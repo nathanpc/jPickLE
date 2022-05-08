@@ -1,9 +1,7 @@
 package com.innoveworkshop.pickle.example;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.text.ParseException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import com.innoveworkshop.pickle.models.Category;
@@ -50,15 +48,34 @@ public class ExampleUsage {
 				// Print the components.
 				ArrayList<Component> components = category.getComponents();
 				for (int j = 0; j < components.size(); j++) {
-					Component component = components.get(j);
-					
-					System.out.print("    ");
-					System.out.print(component.getName());
-					System.out.println();
+					printComponent(components.get(j));
 				}
+				
+				System.out.println();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Prints out a component object.
+	 * 
+	 * @param component Component object to be printed.
+	 */
+	public static void printComponent(Component component) {
+		PrintWriter printer = new PrintWriter(System.out, true);
+		
+		printer.print("    ");
+		printer.print((component.getPicked()) ? '\u2611' : '\u2610');
+		printer.print(" " + component.getQuantity());
+		if (component.getValue() != null)
+			printer.print("\t" + component.getValue());
+		printer.print("\t" + component.getName());
+		if (component.getDescription() != null)
+			printer.print("\t" + component.getDescription());
+		if (component.getPackage() != null)
+			printer.print("\t[" + component.getPackage() + "]");
+		printer.println();
 	}
 }
