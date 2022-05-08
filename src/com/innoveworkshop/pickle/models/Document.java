@@ -116,8 +116,9 @@ public class Document {
 						continue;
 					}
 
-					// Parse the reference designators.
+					// Parse the reference designators and add the component.
 					component.parseRefDesLine(line);
+					category.addComponent(component);
 					stage = ParseStage.EMPTY;
 					continue;
 				default:
