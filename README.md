@@ -16,20 +16,20 @@ doc = new Document(new FileReader(args[0]));
 // Print out the parsed contents.
 ArrayList<Category> categories = doc.getCategories();
 for (int i = 0; i < categories.size(); i++) {
-	Category category = categories.get(i);
-	System.out.println(category.getName() + ":");
+    Category category = categories.get(i);
+    System.out.println(category.getName() + ":");
 
-	// Print the components.
-	ArrayList<Component> components = category.getComponents();
-	for (int j = 0; j < components.size(); j++) {
-		printComponent(components.get(j));
-	}
+    // Print the components.
+    ArrayList<Component> components = category.getComponents();
+    for (int j = 0; j < components.size(); j++) {
+        printComponent(components.get(j));
+    }
 
-	System.out.println();
+    System.out.println();
 }
 ```
 
-More examples can be found in the [examples folder](/src/com/innoveworkshop/pickle/example/]
+More examples can be found in the [examples folder](/src/com/innoveworkshop/pickle/example/)
 of the project.
 
 
