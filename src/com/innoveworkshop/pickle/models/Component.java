@@ -79,7 +79,7 @@ public class Component {
 	 * @param  line Line to be checked.
 	 * @return      {@code true} if the line is a descriptor line.
 	 */
-	public boolean isDescriptorLine(String line) {
+	public static boolean isDescriptorLine(String line) {
 		return line.charAt(0) == '[';
 	}
 	
