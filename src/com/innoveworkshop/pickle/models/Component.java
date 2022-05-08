@@ -3,6 +3,9 @@ package com.innoveworkshop.pickle.models;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import com.google.code.regexp.Matcher;
+import com.google.code.regexp.Pattern;
+
 /**
  * Representation of an electronic component in a pick list.
  * 
@@ -55,7 +58,30 @@ public class Component {
 		if (!isDescriptorLine(line))
 			throw new ParseException("Line isn't a valid component descriptor", 0);
 		
-		// TODO: Do the parsing.
+		// Parse the descriptor line.
+		Pattern regex = Pattern.compile("\\[(?<picked>.)\\]\\s+(?<quantity>\\d+)\\s+(?<name>[^\\s]+)\\s*(\\((?<value>[^\\)]+)\\)\\s*)?(\"(?<description>[^\\\"]+)\"\\s*)?(\\[(?<case>[^\\]]+)\\]\\s*)?");
+		Matcher m = regex.matcher(line);
+		if (!m.find())
+			throw new ParseException("Line didn't match our regular expression", 0);
+		
+		// Populate the mandatory attributes of the object.
+		picked = !m.group("picked").equals(" ");
+		name = m.group("name");
+		
+		// Component value.
+		try {
+			value = m.group("value");
+		} catch (IndexOutOfBoundsException ignored) { }
+
+		// Component description.
+		try {
+			description = m.group("description");
+		} catch (IndexOutOfBoundsException ignored) { }
+		
+		// Component case.
+		try {
+			caseStyle = m.group("case");
+		} catch (IndexOutOfBoundsException ignored) { }
 	}
 	
 	/**
