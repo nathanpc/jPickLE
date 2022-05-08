@@ -86,8 +86,9 @@ public class Document {
 						}
 						
 						// Change the stage and parse a new component.
-						stage = ParseStage.COMPONENT_DESCRIPTOR;
 						component = new Component(line);
+						stage = ParseStage.COMPONENT_REFDES;
+						continue;
 					} else if (Category.isCategoryLine(line)) {
 						// Check if we need to commit our parsed category first.
 						if (category != null)
@@ -96,6 +97,7 @@ public class Document {
 						// Create the new category.
 						category = new Category();
 						category.parseLine(line);
+						stage = ParseStage.EMPTY;
 						continue;
 					} else if (line.isEmpty()) {
 						// Just another empty line...
@@ -116,6 +118,7 @@ public class Document {
 
 					// Parse the reference designators.
 					component.parseRefDesLine(line);
+					stage = ParseStage.EMPTY;
 					continue;
 				default:
 					// Continue below...

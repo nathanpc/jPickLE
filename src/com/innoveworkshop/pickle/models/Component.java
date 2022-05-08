@@ -80,6 +80,9 @@ public class Component {
 	 * @return      {@code true} if the line is a descriptor line.
 	 */
 	public static boolean isDescriptorLine(String line) {
+		if (line.length() == 0)
+			return false;
+
 		return line.charAt(0) == '[';
 	}
 	

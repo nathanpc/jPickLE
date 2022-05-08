@@ -67,6 +67,9 @@ public class Category {
 	 * @return      {@code true} if the line defines a category.
 	 */
 	public static boolean isCategoryLine(String line) {
+		if (line.length() == 0)
+			return false;
+		
 		return line.charAt(line.length() - 1) == ':';
 	}
 	
