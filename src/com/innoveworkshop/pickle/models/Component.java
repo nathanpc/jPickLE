@@ -1,5 +1,6 @@
 package com.innoveworkshop.pickle.models;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +20,6 @@ public class Component {
 	 * Creates an empty component object.
 	 */
 	public Component() {
-		// Set defaults.
 		picked = false;
 		name = "";
 		value = null;
@@ -33,8 +33,11 @@ public class Component {
 	 * in a pick list file.
 	 * 
 	 * @param descLine Descriptor line in a pick list file.
+	 * 
+	 * @throws ParseException  If something went wrong while trying to parse the
+	 *                         line.
 	 */
-	public Component(String descLine) {
+	public Component(String descLine) throws ParseException {
 		this();
 		parseDescriptorLine(descLine);
 	}
@@ -43,8 +46,15 @@ public class Component {
 	 * Parses a descriptor line in a pick list file and populates the object.
 	 * 
 	 * @param line Descriptor line in a pick list file.
+	 * 
+	 * @throws ParseException If the line isn't a descriptor line or something
+	 *                        went wrong while trying to parse the it.
 	 */
-	public void parseDescriptorLine(String line) {
+	public void parseDescriptorLine(String line) throws ParseException {
+		// Make sure we actually have a descriptor line before parsing.
+		if (!isDescriptorLine(line))
+			throw new ParseException("Line isn't a valid component descriptor", 0);
+		
 		// TODO: Do the parsing.
 	}
 	
@@ -61,6 +71,16 @@ public class Component {
 		for (int i = 0; i < des.length; i++) {
 			refDes.add(des[i]);
 		}
+	}
+	
+	/**
+	 * Checks if a line is actually of the descriptor variety.
+	 * 
+	 * @param  line Line to be checked.
+	 * @return      {@code true} if the line is a descriptor line.
+	 */
+	public boolean isDescriptorLine(String line) {
+		return line.charAt(0) == '[';
 	}
 	
 	/**
@@ -181,5 +201,14 @@ public class Component {
 	 */
 	public void setReferenceDesignators(ArrayList<String> refDes) {
 		this.refDes = refDes;
+	}
+	
+	/**
+	 * Adds a reference designator to the reference designator's list.
+	 * 
+	 * @param ref Reference designator to be added to the list.
+	 */
+	public void addReferenceDesignator(String ref) {
+		refDes.add(ref);
 	}
 }
