@@ -125,6 +125,10 @@ public class Document {
 					break;
 				}
 			}
+			
+			// Make sure the last parsed category is accounted for.
+			if (category != null)
+				addCategory(category);
 		} finally {
 			fr.close();
 			br.close();
